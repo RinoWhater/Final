@@ -1,0 +1,14 @@
+﻿publish
+Achei.Client.Services.Test/obj
+Achei.Client.Services.Infrastructure/obj
+Achei.Client.Services.Infrastructure/bin
+Achei.Client.Services.Domain2/obj
+Achei.Client.Services.Domain2/bin
+Achei.Client.Services.CrossCutting.IoC.Infra2/obj
+Achei.Client.Services.CrossCutting.IoC.Infra2/bin
+Achei.Client.Services.Application/bin
+Achei.Client.Services.Application/obj
+Achei.Client.Services.API/bin
+Achei.Client.Services.API/obj
+Achei.Client.Services.Test/bin
+.vs

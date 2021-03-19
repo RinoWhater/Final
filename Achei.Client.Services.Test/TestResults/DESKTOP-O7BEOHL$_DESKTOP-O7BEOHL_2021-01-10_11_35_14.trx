@@ -1,0 +1,46 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TestRun id="2605c74b-6506-4a26-9ca9-9e1cf8c29054" name="DESKTOP-O7BEOHL$@DESKTOP-O7BEOHL 2021-01-10 11:35:14" runUser="AUTORIDADE NT\SISTEMA" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Times creation="2021-01-10T11:35:14.8597615-03:00" queuing="2021-01-10T11:35:14.8597628-03:00" start="2021-01-10T11:35:12.2296200-03:00" finish="2021-01-10T11:35:14.8705319-03:00" />
+  <TestSettings name="default" id="4578ddcd-8cfe-4735-b3b4-e14a5876cf9e">
+    <Deployment runDeploymentRoot="DESKTOP-O7BEOHL$_DESKTOP-O7BEOHL_2021-01-10_11_35_14" />
+  </TestSettings>
+  <Results>
+    <UnitTestResult executionId="cd525822-2c9d-4ded-816c-20338610846f" testId="234792a4-c706-74dd-6f02-8ebde0847852" testName="Achei.Client.Services.Test.ClientTest.TestMapperAddressEntityToAddressViewModel" computerName="DESKTOP-O7BEOHL" duration="00:00:00.0053600" startTime="2021-01-10T11:35:14.6739315-03:00" endTime="2021-01-10T11:35:14.6739348-03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="cd525822-2c9d-4ded-816c-20338610846f" />
+    <UnitTestResult executionId="b16cf690-f2da-42a6-9a22-8fe2b7e7cdb7" testId="bd65a7ac-c755-d842-5505-864c7c69978a" testName="Achei.Client.Services.Test.ClientTest.TestMapperClientEntityToClientViewModel" computerName="DESKTOP-O7BEOHL" duration="00:00:00.0099012" startTime="2021-01-10T11:35:14.6685189-03:00" endTime="2021-01-10T11:35:14.6685215-03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="b16cf690-f2da-42a6-9a22-8fe2b7e7cdb7" />
+    <UnitTestResult executionId="c2390f94-f10d-4462-b86e-5ecaf4d0a2bb" testId="2b4fca28-ecd5-ccec-0dd3-e478faf4e401" testName="Achei.Client.Services.Test.ClientTest.TestMapperClientViewModelToClientEntity" computerName="DESKTOP-O7BEOHL" duration="00:00:00.1995059" startTime="2021-01-10T11:35:14.6590521-03:00" endTime="2021-01-10T11:35:14.6591823-03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="c2390f94-f10d-4462-b86e-5ecaf4d0a2bb" />
+  </Results>
+  <TestDefinitions>
+    <UnitTest name="Achei.Client.Services.Test.ClientTest.TestMapperClientEntityToClientViewModel" storage="c:\windows\system32\config\systemprofile\appdata\local\jenkins\.jenkins\workspace\coalaspace-test-jenkins-webapi\achei.client.services.test\bin\debug\netcoreapp3.1\achei.client.services.test.dll" id="bd65a7ac-c755-d842-5505-864c7c69978a">
+      <Execution id="b16cf690-f2da-42a6-9a22-8fe2b7e7cdb7" />
+      <TestMethod codeBase="C:\Windows\System32\config\systemprofile\AppData\Local\Jenkins\.jenkins\workspace\CoalaSpace-Test-Jenkins-WebAPI\Achei.Client.Services.Test\bin\Debug\netcoreapp3.1\Achei.Client.Services.Test.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="Achei.Client.Services.Test.ClientTest" name="TestMapperClientEntityToClientViewModel" />
+    </UnitTest>
+    <UnitTest name="Achei.Client.Services.Test.ClientTest.TestMapperClientViewModelToClientEntity" storage="c:\windows\system32\config\systemprofile\appdata\local\jenkins\.jenkins\workspace\coalaspace-test-jenkins-webapi\achei.client.services.test\bin\debug\netcoreapp3.1\achei.client.services.test.dll" id="2b4fca28-ecd5-ccec-0dd3-e478faf4e401">
+      <Execution id="c2390f94-f10d-4462-b86e-5ecaf4d0a2bb" />
+      <TestMethod codeBase="C:\Windows\System32\config\systemprofile\AppData\Local\Jenkins\.jenkins\workspace\CoalaSpace-Test-Jenkins-WebAPI\Achei.Client.Services.Test\bin\Debug\netcoreapp3.1\Achei.Client.Services.Test.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="Achei.Client.Services.Test.ClientTest" name="TestMapperClientViewModelToClientEntity" />
+    </UnitTest>
+    <UnitTest name="Achei.Client.Services.Test.ClientTest.TestMapperAddressEntityToAddressViewModel" storage="c:\windows\system32\config\systemprofile\appdata\local\jenkins\.jenkins\workspace\coalaspace-test-jenkins-webapi\achei.client.services.test\bin\debug\netcoreapp3.1\achei.client.services.test.dll" id="234792a4-c706-74dd-6f02-8ebde0847852">
+      <Execution id="cd525822-2c9d-4ded-816c-20338610846f" />
+      <TestMethod codeBase="C:\Windows\System32\config\systemprofile\AppData\Local\Jenkins\.jenkins\workspace\CoalaSpace-Test-Jenkins-WebAPI\Achei.Client.Services.Test\bin\Debug\netcoreapp3.1\Achei.Client.Services.Test.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="Achei.Client.Services.Test.ClientTest" name="TestMapperAddressEntityToAddressViewModel" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestEntries>
+    <TestEntry testId="234792a4-c706-74dd-6f02-8ebde0847852" executionId="cd525822-2c9d-4ded-816c-20338610846f" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="bd65a7ac-c755-d842-5505-864c7c69978a" executionId="b16cf690-f2da-42a6-9a22-8fe2b7e7cdb7" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="2b4fca28-ecd5-ccec-0dd3-e478faf4e401" executionId="c2390f94-f10d-4462-b86e-5ecaf4d0a2bb" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <TestLists>
+    <TestList name="Resultados que não estão em uma lista" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="Todos os resultados carregados" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <ResultSummary outcome="Completed">
+    <Counters total="3" executed="3" passed="3" failed="0" error="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+    <Output>
+      <StdOut>[xUnit.net 00:00:00.00] xUnit.net VSTest Adapter v2.4.0 (64-bit .NET Core 3.1.10)&#xD;
+[xUnit.net 00:00:00.67]   Discovering: Achei.Client.Services.Test&#xD;
+[xUnit.net 00:00:00.73]   Discovered:  Achei.Client.Services.Test&#xD;
+[xUnit.net 00:00:00.73]   Starting:    Achei.Client.Services.Test&#xD;
+[xUnit.net 00:00:01.04]   Finished:    Achei.Client.Services.Test&#xD;
+</StdOut>
+    </Output>
+  </ResultSummary>
+</TestRun>

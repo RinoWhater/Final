@@ -1,0 +1,433 @@
+{
+	"info": {
+		"_postman_id": "c296e8b0-6e2c-41e2-963f-f5fd2e740c70",
+		"name": "Test_Client_LocalHost",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Client",
+			"item": [
+				{
+					"name": "Consulta Cliente",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Teste statusCode\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.statusCode).to.eql(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Teste statusCode\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.success).to.eql(true);\r",
+									"});\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://local.jenkins.com.br/api/Client/Get/1",
+							"protocol": "https",
+							"host": [
+								"local",
+								"jenkins",
+								"com",
+								"br"
+							],
+							"path": [
+								"api",
+								"Client",
+								"Get",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Consulta Endereço",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Teste statusCode\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.statusCode).to.eql(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Teste statusCode\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.success).to.eql(true);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://local.jenkins.com.br/api/Client/Get/Address/1",
+							"protocol": "https",
+							"host": [
+								"local",
+								"jenkins",
+								"com",
+								"br"
+							],
+							"path": [
+								"api",
+								"Client",
+								"Get",
+								"Address",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Criação de Clientes",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"CPF\" : \"88156191005\",\r\n    \"Name\" : \"Julistenio Almonica\",\r\n    \"Email\" : \"cesar.ale.funaki@gmail.com\",\r\n    \"Password\" : \"M8j&%$45re4\",\r\n    \"DDD\" : \"11\",\r\n    \"Phone\" : \"95487-5632\",  \r\n    \"Street\" : \"Rua Pernambuco\",\r\n    \"Number\" : \"75\",\r\n    \"Neighborhood\" : \"Jardim Santa Barbara\",\r\n    \"ZipCode\" : \"07192-290\",\r\n    \"Complement\" : \"\",\r\n    \"City\" : \"Guarulhos\",\r\n    \"State\" : \"SP\",\r\n    \"Country\" : \"Brasil\",\r\n    \"AddressID\": 1,\r\n    \"CityID\" : 1,\r\n    \"StateID\" : 25,\r\n    \"CountryID\": 1\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://local.jenkins.com.br/api/Client/Post",
+							"protocol": "https",
+							"host": [
+								"local",
+								"jenkins",
+								"com",
+								"br"
+							],
+							"path": [
+								"api",
+								"Client",
+								"Post"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login Tentativa 1",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Teste statusCode\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.success).to.eql(false);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Teste statusCode\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.statusCode).to.eql(204);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"Email\": \"julio.prado@gmail.com\" ,\r\n    \"Password\" : \"xxxxxx\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://local.jenkins.com.br/api/Client/Login",
+							"protocol": "https",
+							"host": [
+								"local",
+								"jenkins",
+								"com",
+								"br"
+							],
+							"path": [
+								"api",
+								"Client",
+								"Login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login Tentativa 2",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Teste statusCode\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.success).to.eql(false);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Teste statusCode\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.statusCode).to.eql(204);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"Email\": \"julio.prado@gmail.com\" ,\r\n    \"Password\" : \"yyyyyy\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://local.jenkins.com.br/api/Client/Login",
+							"protocol": "https",
+							"host": [
+								"local",
+								"jenkins",
+								"com",
+								"br"
+							],
+							"path": [
+								"api",
+								"Client",
+								"Login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login Tentativa 3",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Teste statusCode\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.success).to.eql(false);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Teste statusCode\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.statusCode).to.eql(204);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"Email\": \"julio.prado@gmail.com\" ,\r\n    \"Password\" : \"iiiiiiiii\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://local.jenkins.com.br/api/Client/Login",
+							"protocol": "https",
+							"host": [
+								"local",
+								"jenkins",
+								"com",
+								"br"
+							],
+							"path": [
+								"api",
+								"Client",
+								"Login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login Bloqueio por limite de Tentativas",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Teste statusCode\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.success).to.eql(false);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Teste statusCode\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.statusCode).to.eql(204);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Teste statusCode\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.message).to.eql(\"limite de tentativas excedidas, entre em contato com com o suporte técnico para debloquear seu acesso.\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"Email\": \"julio.prado@gmail.com\" ,\r\n    \"Password\" : \"123456789\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://local.jenkins.com.br/api/Client/Login",
+							"protocol": "https",
+							"host": [
+								"local",
+								"jenkins",
+								"com",
+								"br"
+							],
+							"path": [
+								"api",
+								"Client",
+								"Login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Teste Complexidade de Senha",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Teste statusCode\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.success).to.eql(false);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Teste statusCode\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.statusCode).to.eql(400);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Teste statusCode\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.message).to.eql(\"A senha deve conter no Minimo 10 caracteres, pelo menos uma Letra maiúscula, pelo menos uma Letra minúscula, pelo menos um Numero, pelo menos um Caracter Especial.\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"CPF\" : \"88156191005\",\r\n    \"Name\" : \"Julistenio Almonica\",\r\n    \"Email\" : \"cesar.ale.funaki@gmail.com\",\r\n    \"Password\" : \"teste123\",\r\n    \"DDD\" : \"11\",\r\n    \"Phone\" : \"95487-5632\",  \r\n    \"Street\" : \"Rua Pernambuco\",\r\n    \"Number\" : \"75\",\r\n    \"Neighborhood\" : \"Jardim Santa Barbara\",\r\n    \"ZipCode\" : \"07192-290\",\r\n    \"Complement\" : \"\",\r\n    \"City\" : \"Guarulhos\",\r\n    \"State\" : \"SP\",\r\n    \"Country\" : \"Brasil\",\r\n    \"AddressID\": 1,\r\n    \"CityID\" : 1,\r\n    \"StateID\" : 25,\r\n    \"CountryID\": 1\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://local.jenkins.com.br/api/Client/Post",
+							"protocol": "https",
+							"host": [
+								"local",
+								"jenkins",
+								"com",
+								"br"
+							],
+							"path": [
+								"api",
+								"Client",
+								"Post"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

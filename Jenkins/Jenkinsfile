@@ -1,0 +1,238 @@
+pipeline {
+	agent any	
+	
+	environment {
+        
+        //********** Variables for Stages: Restore Packages And Build / Unit testing *********************************
+        DIRECTORY_WORKSPACE =  'C:\\WINDOWS\\system32\\config\\systemprofile\\AppData\\Local\\Jenkins\\.jenkins\\workspace\\Ultimo'
+        TIME_TO_FINISH_UNIT_TESTING = 10
+        TIME_TO_RESTORE_AND_BUILD = 10
+
+        //********** Variables for Stages: Backup Application From IIS Server / Deploy / RollBack ********************
+        BKP_FOLDER_DESTINATION = ''
+        DIRECTORY_OF_BACKUP_APP_IIS_SERVER = 'D:\\Backups_Jenkins\\APIs\\Client\\'
+        DIRECTORY_APP_IIS_SERVER = 'D:\\web\\api\\Client\\'
+        PUBLISH_PROJECT = 'C:\\WINDOWS\\system32\\config\\systemprofile\\AppData\\Local\\Jenkins\\.jenkins\\workspace\\Ultimo\\Achei.Client.Services.API\\Achei.Client.Services.API.csproj'
+        ROLLBACK = false
+
+        //********** Variables for Stages: Integration testing / Deploy **********************************************
+        TEST_POSTMAN_COLLECTION = 'C:\\TestIntegrationPostmanJenkins\\Test_Client_LocalHost.postman_collection.json'
+        DIRECTORY_RESULT_TEST_POSTMAN = 'C:\\TestIntegrationPostmanJenkins\\newman\\API-Client'
+        IIS_APP_POOL_NAME = 'api-client'
+        POSTMAN_TESTING_ENVIRONMENT = 'C:\\TestIntegrationPostmanJenkins\\Homologacao.postman_environment.json'
+        
+    }
+	
+	stages {
+
+		stage('Restore Packages And Build') {
+			steps { 
+                script{
+                    directoryWorkSpace="${DIRECTORY_WORKSPACE}"
+                    withEnv(["directoryWork=${directoryWorkSpace}", "timetoRestoreAndBuild=${TIME_TO_RESTORE_AND_BUILD}"]){
+
+                        powershell '''
+
+                            $timetoFinish = $env:timetoRestoreAndBuild 
+                            start-Sleep -s 15; 
+                            cd\\; 
+                            cd $env:directoryWork; 
+                            dotnet restore;
+                            start-Sleep -s $timetoFinish; 
+                            dotnet build;
+                            start-Sleep -s $timetoFinish;
+                            Remove-Variable timetoFinish -force
+                        '''
+                    } 
+                } 
+			}
+		}
+		
+		stage('Unit testing') {
+			steps { 
+                script{
+                    directoryWorkSpace="${DIRECTORY_WORKSPACE}"
+                    withEnv(["directoryWork=${DIRECTORY_WORKSPACE}", "timetoFinishtesting=${TIME_TO_FINISH_UNIT_TESTING}"]){
+                        powershell ''' 
+                        
+                            cd\\; 
+                            cd $env:directoryWork; 
+                            $timetoFinish = $env:timetoFinishtesting 
+                            dotnet test --logger trx; 
+                            start-Sleep -s $timetoFinish;
+                            Remove-Variable timetoFinish -force
+                            if ($lastexitcode -gt 0) { exit 1; } ;
+
+                        '''
+                    }
+                }
+			}
+		}
+		
+		stage('Backup Application From IIS Server') {
+			steps { 
+                  script{
+                      
+                    def now = new Date()
+                    BKP_FOLDER_DESTINATION = 'BKP_API_Client_' + now.format("dd-MM-yyyy.HH-mm-ss.SSS")  
+                    bkpFolderDestination="${BKP_FOLDER_DESTINATION}"
+                    withEnv([ "folderDest=${bkpFolderDestination}", "backupFolder=${DIRECTORY_OF_BACKUP_APP_IIS_SERVER}", "dirAppIIS=${DIRECTORY_APP_IIS_SERVER}" ]){
+                        
+                        powershell ''' 
+                        
+                             $folderName =  $env:folderDest
+                             $bkpFolder = $env:backupFolder
+                             $appIIS = $env:dirAppIIS
+
+                             New-Item -ItemType Directory -Path $bkpFolder -Name $folderName;
+                             $folderDestination = "$($bkpFolder)$($folderName)";
+                             Copy-Item -Path "$($appIIS)*" -Destination $folderDestination -Recurse -force
+
+                             Remove-Variable folderName -force
+                             Remove-Variable bkpFolder -force
+                             Remove-Variable appIIS -force
+                         '''
+                    }
+
+                    BKP_FOLDER_DESTINATION = "${DIRECTORY_OF_BACKUP_APP_IIS_SERVER}" + BKP_FOLDER_DESTINATION
+                    echo "cesar Alexandre Akishigue Funaki"
+                    echo BKP_FOLDER_DESTINATION
+                }
+			}
+		}
+		
+	    stage('Deploy') {
+			steps { 
+                script{
+                    withEnv([ "AppPoolName=${IIS_APP_POOL_NAME}", "pubProject=${PUBLISH_PROJECT}", "dirAppIIS=${DIRECTORY_APP_IIS_SERVER}"]){
+                        powershell '''
+
+                            $appIIS = $env:dirAppIIS
+                            $pubProj = $env:pubProject
+                            $poolName = $env:AppPoolName
+                            
+                            if ((Get-WebAppPoolState -Name $poolName).Value -eq "Started") { 
+                                stop-WebAppPool -Name $poolName 
+                            };
+
+                            start-Sleep -s 10; 
+                            Remove-Item"$($appIIS)*" -Recurse -Force; 
+                            start-Sleep -s 5; 
+                            dotnet restore;
+                            start-Sleep -s 5; 
+                            dotnet publish $pubProj -c release -o "$($appIIS)"; 
+ 
+                            $status = (Get-WebAppPoolState -Name $poolName).Value;
+                            While($status -eq "Stopped") { 
+
+                                if ((Get-WebAppPoolState -Name $poolName).Value -eq "Stopped") {
+                                    Write-Host "O App Pool is Stopped. Trying to start.";
+                                    start-Sleep -s 30;
+                                    Start-WebAppPool -Name $poolName;
+                                }
+                                else {
+                                    $status = "Started";
+                                }
+                            };   
+
+                            Remove-Variable appIIS -force
+                            Remove-Variable pubProj -force
+                            Remove-Variable poolName -force
+                            Remove-Variable status -force
+                        '''
+                    }
+                } 
+			}
+		}
+		
+		stage('Integration testing') {
+			steps {
+			    script {
+                    try {
+
+                        withEnv([ "postmanTestEnvironment=${POSTMAN_TESTING_ENVIRONMENT}", "postmanCollection=${TEST_POSTMAN_COLLECTION}", "dirResultNewman=${DIRECTORY_RESULT_TEST_POSTMAN}"]){
+
+                            powershell '''
+                            
+                                $postmanCollect = $env:postmanCollection
+                                $postmanResult = $env:dirResultNewman
+                                $postmanEnvironment = $env:postmanTestEnvironment
+
+                                cd\\; 
+                                cd C:\\Users\\Android\\AppData\\Roaming\\npm\\node_modules\\newman\\bin;
+                                node newman run $postmanCollect -e $postmanEnvironment --insecure --disable-unicode --reporter-junit-export $postmanResult;
+
+                                Remove-Variable postmanCollect -force
+                                Remove-Variable postmanResult -force
+                            '''
+                            
+                        }
+
+                    } catch (Exception e) {
+                        echo 'Entrou no Catch'
+                        echo 'Teste de Integração falhou, o Rollback será executado'
+                        echo 'Exception occurred: ' + e.toString()
+                        ROLLBACK = true
+                        currentBuild.result = 'FAILURE'
+                        
+                    }
+                }
+			}
+		}
+		
+		stage('RollBack') {
+		    agent any
+            when{
+              expression {
+                    return ROLLBACK == true
+                }
+            }
+            steps { 
+                
+                script{
+                    bkpFolderOrigin="${BKP_FOLDER_DESTINATION}"
+                    withEnv(["FolderOrigin=${bkpFolderOrigin}", "dirAppIIS=${DIRECTORY_APP_IIS_SERVER}", "AppPoolName=${IIS_APP_POOL_NAME}"]){
+                          
+                         powershell ''' 
+                                    
+                            $appIIS = $env:dirAppIIS        
+                            $folderorigin = $env:FolderOrigin + ”\\*”;
+                            $poolName = $env:AppPoolName
+
+                            write-host $folderorigin
+
+                            if ((Get-WebAppPoolState -Name $poolName).Value -eq "Started") { 
+                                stop-WebAppPool -Name $poolName 
+                            };
+
+                            start-Sleep -s 10; 
+                            Remove-Item"$($appIIS)*" -Recurse -Force; 
+                            start-Sleep -s 5; 
+                            Copy-Item –Path $folderorigin  -Destination "$($appIIS)*"  –Recurse –force
+
+                            $status = (Get-WebAppPoolState -Name $poolName).Value;
+                            While($status -eq "Stopped") { 
+
+                                if ((Get-WebAppPoolState -Name $poolName).Value -eq "Stopped") {
+                                    Write-Host "O App Pool is Stopped. Trying to start.";
+                                    start-Sleep -s 30;
+                                    Start-WebAppPool -Name $poolName;
+                                }
+                                else {
+                                    $status = "Started";
+                                }
+                            };  
+
+                            Remove-Variable appIIS -force
+                            Remove-Variable folderorigin -force
+                            Remove-Variable poolName -force
+                            Remove-Variable status -force
+                            
+                         '''
+                    }
+                }
+            }
+        }
+        
+	}
+}
