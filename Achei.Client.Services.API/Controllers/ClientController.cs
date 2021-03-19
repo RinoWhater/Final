@@ -100,17 +100,17 @@ namespace Achei.Client.Services.API.Controllers
             return new ObjectResult(new ObjectResultViewModel(_clientAppServices.Success, client, _clientAppServices.StatusCode, _clientAppServices.Message));
         }
 
-        //[HttpPut]
-        //[Route("Put")]
-        //public async Task<ActionResult<ClientViewModel>> Put([FromBody] ClientViewModel updateClient) {
-        //    ClientViewModel client = new ClientViewModel();
-        //    try {
-        //        client = await _clientAppServices.UpdateClient(updateClient);
-        //    } catch (Exception ex) {
-        //        return new ObjectResult(new ObjectResultViewModel(false, null, HttpStatusCode.InternalServerError, ex.Message));
-        //    }
-        //    return new ObjectResult(new ObjectResultViewModel(_clientAppServices.Success, client, _clientAppServices.StatusCode, _clientAppServices.Message));
-        //}
+        [HttpPut]
+        [Route("Put")]
+        public async Task<ActionResult<ClientViewModel>> Put([FromBody] ClientViewModel updateClient) {
+            ClientViewModel client = new ClientViewModel();
+            try {
+                client = await _clientAppServices.UpdateClient(updateClient);
+            } catch (Exception ex) {
+                return new ObjectResult(new ObjectResultViewModel(false, null, HttpStatusCode.InternalServerError, ex.Message));
+            }
+            return new ObjectResult(new ObjectResultViewModel(_clientAppServices.Success, client, _clientAppServices.StatusCode, _clientAppServices.Message));
+        }
 
         [HttpPost]
         [Route("Login")]
