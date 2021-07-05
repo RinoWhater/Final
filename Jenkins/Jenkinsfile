@@ -16,10 +16,10 @@ pipeline {
         ROLLBACK = false
 
         //********** Variables for Stages: Integration testing / Deploy **********************************************
-        TEST_POSTMAN_COLLECTION = 'C:\\TestIntegrationPostmanJenkins\\Test_Client_LocalHost.postman_collection.json'
+        TEST_POSTMAN_COLLECTION = 'C:\\Windows\\System32\\config\\systemprofile\\AppData\\Local\\Jenkins\\.jenkins\\workspace\\Ultimo\\Jenkins\\Test_Client_LocalHost.postman_collection.json'
         DIRECTORY_RESULT_TEST_POSTMAN = 'C:\\TestIntegrationPostmanJenkins\\newman\\API-Client'
         IIS_APP_POOL_NAME = 'api-client'
-        POSTMAN_TESTING_ENVIRONMENT = 'C:\\TestIntegrationPostmanJenkins\\Homologacao.postman_environment.json'
+        POSTMAN_TESTING_ENVIRONMENT = 'C:\\Windows\\System32\\config\\systemprofile\\AppData\\Local\\Jenkins\\.jenkins\\workspace\\Ultimo\\Jenkins\\Homologacao.postman_environment.json'
         
     }
 	
