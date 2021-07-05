@@ -116,7 +116,7 @@ pipeline {
                             };
 
                             start-Sleep -s 10; 
-                            Remove-Item"$($appIIS)*" -Recurse -Force; 
+                            Remove-Item "$($appIIS)*" -Recurse -Force; 
                             start-Sleep -s 5; 
                             dotnet restore;
                             start-Sleep -s 5; 
