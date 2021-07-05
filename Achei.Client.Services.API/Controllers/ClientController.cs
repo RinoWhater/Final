@@ -26,30 +26,30 @@ namespace Achei.Client.Services.API.Controllers
             appConfiguration = options.Value;
         }
          
-        [HttpGet] 
-        [Route("Get/{clientID}")]                  
-        public async Task<ActionResult<ClientViewModel>> Get(int clientID) {
-            string cachekeyName = string.Format("Get{0}", clientID);
-            ClientViewModel client = new ClientViewModel();
+        //[HttpGet] 
+        //[Route("Get/{clientID}")]                  
+        //public async Task<ActionResult<ClientViewModel>> Get(int clientID) {
+        //    string cachekeyName = string.Format("Get{0}", clientID);
+        //    ClientViewModel client = new ClientViewModel();
 
-            try {
-                if (!_cache.TryGetValue(cachekeyName, out client)) {
-                    client = await _clientAppServices.GetClient(clientID);
-                    var cacheEntryOptions = new MemoryCacheEntryOptions()
-                   .SetSlidingExpiration(TimeSpan.FromSeconds(appConfiguration.ExpireTimeCacheSecondsDefault));
-                    _cache.Set(cachekeyName, client, cacheEntryOptions);
-                }
-                else {
-                    _clientAppServices.Success = true;
-                    _clientAppServices.StatusCode = HttpStatusCode.OK;
-                }
-            }
-            catch (Exception ex) { 
-                return new ObjectResult(new ObjectResultViewModel(false, client, HttpStatusCode.InternalServerError, ex.Message));
-            }
+        //    try {
+        //        if (!_cache.TryGetValue(cachekeyName, out client)) {
+        //            client = await _clientAppServices.GetClient(clientID);
+        //            var cacheEntryOptions = new MemoryCacheEntryOptions()
+        //           .SetSlidingExpiration(TimeSpan.FromSeconds(appConfiguration.ExpireTimeCacheSecondsDefault));
+        //            _cache.Set(cachekeyName, client, cacheEntryOptions);
+        //        }
+        //        else {
+        //            _clientAppServices.Success = true;
+        //            _clientAppServices.StatusCode = HttpStatusCode.OK;
+        //        }
+        //    }
+        //    catch (Exception ex) { 
+        //        return new ObjectResult(new ObjectResultViewModel(false, client, HttpStatusCode.InternalServerError, ex.Message));
+        //    }
              
-            return new ObjectResult(new ObjectResultViewModel(_clientAppServices.Success, client, _clientAppServices.StatusCode, _clientAppServices.Message));
-        }
+        //    return new ObjectResult(new ObjectResultViewModel(_clientAppServices.Success, client, _clientAppServices.StatusCode, _clientAppServices.Message));
+        //}
 
         [HttpGet]
         [Route("Get/Address/{AddressID}")]
