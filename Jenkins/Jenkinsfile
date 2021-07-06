@@ -195,8 +195,14 @@ pipeline {
                           
                          powershell ''' 
                                     
+                            write-host 'entrou no withEnv'  
+
+                                  write-host $env:dirAppIIS
+                                  write-host $env:FolderOrigin  + '\\*';
+                                  write-host $env:AppPoolName
+
                             $appIIS = $env:dirAppIIS        
-                            $folderorigin = $env:FolderOrigin + ”\\*”;
+                            $folderorigin = $env:FolderOrigin  + '\\*';
                             $poolName = $env:AppPoolName
 
                             write-host $folderorigin
