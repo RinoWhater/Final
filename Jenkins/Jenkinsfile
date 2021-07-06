@@ -125,14 +125,11 @@ pipeline {
                             $status = (Get-WebAppPoolState -Name $poolName).Value;
                             While($status -eq "Stopped") { 
 
-                                if ((Get-WebAppPoolState -Name $poolName).Value -eq "Stopped") {
-                                    Write-Host "O App Pool is Stopped. Trying to start.";
-                                    start-Sleep -s 30;
-                                    Start-WebAppPool -Name $poolName;
-                                }
-                                else {
-                                    $status = "Started";
-                                }
+                                Write-Host "O App Pool is Stopped. Trying to start.";
+                                start-Sleep -s 30;
+                                Start-WebAppPool -Name $poolName;
+                                $status = (Get-WebAppPoolState -Name $poolName).Value;
+
                             };   
 
                             Remove-Variable appIIS -force
