@@ -170,7 +170,7 @@ pipeline {
 
                     } catch (Exception e) {
                         echo 'Entrou no Catch'
-                        echo 'Teste de Integração falhou, o Rollback será executado'
+                        echo 'Teste de Integracao falhou, o Rollback sera executado'
                         echo 'Exception occurred: ' + e.toString()
                         ROLLBACK = true
                         currentBuild.result = 'FAILURE'
@@ -206,7 +206,7 @@ pipeline {
                             };
 
                             start-Sleep -s 10; 
-                            Remove-Item"$($appIIS)*" -Recurse -Force; 
+                            Remove-Item "$($appIIS)*" -Recurse -Force; 
                             start-Sleep -s 5; 
                             Copy-Item –Path $folderorigin  -Destination "$($appIIS)*"  –Recurse –force
 
