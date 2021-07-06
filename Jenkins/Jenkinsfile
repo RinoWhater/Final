@@ -178,15 +178,10 @@ pipeline {
 		}
 		
 		stage('RollBack') {
-		    agent any
-            when{
-              expression {
-                    return ROLLBACK == true
-                }
-            }
             steps { 
                 
                 script{
+                    
                     bkpFolderOrigin="${BKP_FOLDER_DESTINATION}"
                     withEnv(["FolderOrigin=${bkpFolderOrigin}", "dirAppIIS=${DIRECTORY_APP_IIS_SERVER}", "AppPoolName=${IIS_APP_POOL_NAME}"]){
                           
@@ -194,9 +189,9 @@ pipeline {
                                     
                             write-host 'entrou no withEnv'  
 
-                                  write-host $env:dirAppIIS
-                                  write-host $env:FolderOrigin  + '\\*';
-                                  write-host $env:AppPoolName
+                            write-host $env:dirAppIIS
+                            write-host $env:FolderOrigin  + '\\*';
+                            write-host $env:AppPoolName
 
                             $appIIS = $env:dirAppIIS        
                             $folderorigin = $env:FolderOrigin  + '\\*';
