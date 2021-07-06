@@ -208,7 +208,7 @@ pipeline {
                             start-Sleep -s 10; 
                             Remove-Item "$($appIIS)*" -Recurse -Force; 
                             start-Sleep -s 5; 
-                            Copy-Item –Path $folderorigin  -Destination "$($appIIS)*"  –Recurse –force
+                            Copy-Item –Path $folderorigin  -Destination "$($appIIS)"  –Recurse –force
 
                             $status = (Get-WebAppPoolState -Name $poolName).Value;
                             While($status -eq "Stopped") { 
