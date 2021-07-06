@@ -125,7 +125,7 @@ pipeline {
                             $status = (Get-WebAppPoolState -Name $poolName).Value;
                             While($status -eq "Stopped") { 
 
-                                Write-Host "O App Pool is Stopped. Trying to start.";
+                                Write-Host 'O App Pool is Stopped. Trying to start.';
                                 start-Sleep -s 30;
                                 Start-WebAppPool -Name $poolName;
                                 $status = (Get-WebAppPoolState -Name $poolName).Value;
