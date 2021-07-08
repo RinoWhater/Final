@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Achei.Client.Services.Domain.Entities;
+using System.Data.SqlClient;
 
 namespace Achei.Client.Services.Data.Infra.Repository {
     public class ClientRepository : IClientRepository  {
@@ -21,11 +22,47 @@ namespace Achei.Client.Services.Data.Infra.Repository {
         }
 
         public async Task<ClientEntity> GetClient(int ClientID) {  
-            ClientEntity result; 
+
+
+
+            ClientEntity result;
+
+            //ConsultaCliente
+            
+            //List<ClientEntity> teste = await context.Client.FromSql("ConsultaCliente").ToListAsync();
+
+            //var param = new SqlParameter() {
+            //    ParameterName = "@CPF",
+            //    SqlDbType = System.Data.SqlDbType.VarChar,
+            //    Direction = System.Data.ParameterDirection.Input,
+            //    Size = 50,
+            //    Value = "29366179444"
+            //};
+
+            //List <ClientEntity> tesffte = await context.Client.FromSql("consultaClientePorCPF @CPF ", param).ToListAsync();
+
+            var pais = new SqlParameter() {
+                ParameterName = "@pais",
+                SqlDbType = System.Data.SqlDbType.VarChar,
+                Direction = System.Data.ParameterDirection.Input,
+                Size = 50,
+                Value = "Alemanha"
+            };
+
+            var sigla = new SqlParameter() {
+                ParameterName = "@sigla",
+                SqlDbType = System.Data.SqlDbType.VarChar,
+                Direction = System.Data.ParameterDirection.Input,
+                Size = 50,
+                Value = "DE"
+            };
+
+            await context.Database.ExecuteSqlCommandAsync("EXEC InserirPais @pais, @sigla ", pais, sigla);
+
             result = await context.Client
                 .Include(c => c.Address) 
                 .FirstOrDefaultAsync(x => x.ID == ClientID);
-             
+            
             return result;
         }
 

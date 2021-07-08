@@ -16,7 +16,7 @@ namespace Achei.Client.Services.Domain2.Services {
             _clientRepository = clientRepository;
         }
 
-        public async Task<ClientEntity> GetClient(int clientID) { 
+        public async Task<ClientEntity> GetClient(int clientID) {
             return await _clientRepository.GetClient(clientID); ;
         }
 
